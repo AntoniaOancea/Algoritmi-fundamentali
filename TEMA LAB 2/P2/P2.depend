@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1670490789 source:e:\cursuri\anul2-sem1\algoritmi fundamentali\pb-lab\tema lab 2\p2\main.cpp
+	<fstream>
+	<vector>
+

@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1673124492 source:e:\cursuri\anul2-sem1\algoritmi fundamentali\pb-lab\tema lab 6\p1_b\main.cpp
+	<iostream>
+	<fstream>
+	<vector>
+	<queue>
+	<string.h>
+

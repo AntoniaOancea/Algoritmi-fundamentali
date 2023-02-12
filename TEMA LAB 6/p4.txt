@@ -1,0 +1,43 @@
+class Solution {
+public:
+    map<int,vector<int>>  g;
+    map<int,int> in, out;
+    vector<vector<int> > res;
+    stack<int> st;
+    
+    void dfs(int u){
+        while(out[u]){
+            out[u]--;
+            int v = g[u][out[u]];
+            dfs(v);
+        }
+        st.push(u);
+    }
+    
+    vector<vector<int>> validArrangement(vector<vector<int>>& pairs) {
+        set<int> node;
+        for(auto &p : pairs){
+            int u=p[0], v=p[1];
+            g[u].push_back(v);
+            node.insert(u);
+            node.insert(v);
+            out[u]++;
+            in[v]++;
+        }
+        
+        int start = *node.begin();
+        for(auto &u : node){
+            if(in[u] < out[u]) start=u;
+        }
+        
+        dfs(start);
+        
+        int s = st.top(); st.pop();
+        while(!st.empty()){
+            int t = st.top(); st.pop();
+            res.push_back({s,t});
+            s=t;
+        }
+        return res;
+    }
+};

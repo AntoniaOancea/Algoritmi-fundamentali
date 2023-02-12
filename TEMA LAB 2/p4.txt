@@ -1,0 +1,33 @@
+typedef pair<int,double> p;
+typedef pair<double,int> p1;
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+        vector<vector<p>> pr(n);
+        //pr memoreaza probabilitatea de a trece dintr-un punct in celalalt
+        for(int i=0;i<edges.size();i++)
+        {
+            pr[edges[i][0]].push_back({edges[i][1],succProb[i]});
+            pr[edges[i][1]].push_back({edges[i][0],succProb[i]});
+        }
+        priority_queue<p1,vector<p1>> pq;
+        pq.push({1.00,start});//plecam cu probab 1 din puctul de start
+        vector<double> dist(n,0.00); 
+        dist[start]=1.00; 
+         while(!pq.empty())
+        {
+            double pt=pq.top().first; //probabilitatea
+            int node=pq.top().second; //nodul de unde pleaca
+            pq.pop();
+            for(auto it:pr[node]) //parcurgem vectorul de probab pentru nodul curent
+            {
+                if(dist[it.first]<dist[node]*it.second) //adaugam probab mai mare in coada 
+                {
+                    dist[it.first]=dist[node]*it.second; 
+                    pq.push({dist[it.first],it.first}); //adaugam noul nod in coada si produsul curent de probab
+                }
+            }
+        }
+        return dist[end];
+    }
+};
